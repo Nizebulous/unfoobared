@@ -1,12 +1,12 @@
 """
-URL definition for blog application API
+URL definition for blog application
 """
 
 from django.conf.urls import url
 
-from blog.api import BlogEntryViewSet
+from blog.views import index
 
 
 urlpatterns = [
-    url(r'^blog-entries/', BlogEntryViewSet.as_view({'get': 'list'})),
+    url(r'', index),
 ]

@@ -26,7 +26,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'pipeline',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -116,7 +117,46 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+    'PAGE_SIZE': 30,
+}
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles/'
+
+
+# django-pipeline configuration
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(__file__), '..', 'bower_components'),
+)
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+PIPELINE = {
+    # 'PIPELINE_ENABLED': True,
+    'JAVASCRIPT': {
+        'blog': {
+            'source_filenames': (
+                # 'jquery/jquery.js',
+                # 'react/react.js',
+                # 'react/react-dom.js',
+                # 'flux/dist/Flux.js',
+                'blog/js/main.jsx',
+            ),
+            'output_filename': 'blog/js/app.js',
+        }
+    },
+    'COMPILERS': (
+        # 'react.utils.pipeline.JSXCompiler',
+        'lib.pipeline.browserify_pipeline.BrowserifyCompiler',
+    )
+}
