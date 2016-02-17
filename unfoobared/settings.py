@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'pipeline',
     'blog.apps.BlogConfig',
+    'frontend.apps.FrontendConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -132,9 +133,6 @@ STATIC_ROOT = 'staticfiles/'
 
 
 # django-pipeline configuration
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), '..', 'bower_components'),
-)
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -146,13 +144,10 @@ PIPELINE = {
     'JAVASCRIPT': {
         'blog': {
             'source_filenames': (
-                # 'jquery/jquery.js',
-                # 'react/react.js',
-                # 'react/react-dom.js',
-                # 'flux/dist/Flux.js',
-                'blog/js/main.jsx',
+                'frontend/js/header.jsx',
+                'frontend/js/blog.jsx',
             ),
-            'output_filename': 'blog/js/app.js',
+            'output_filename': 'blog/js/blog.js',
         }
     },
     'COMPILERS': (

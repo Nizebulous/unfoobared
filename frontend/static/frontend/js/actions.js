@@ -1,3 +1,4 @@
+/* jshint esversion: 6, node: true, browser: true */
 'use strict';
 
 var $ = require('jquery-browserify');
