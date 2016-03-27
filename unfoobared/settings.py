@@ -141,11 +141,27 @@ STATICFILES_FINDERS = (
 )
 PIPELINE = {
     # 'PIPELINE_ENABLED': True,
-    'JAVASCRIPT': {
+    'STYLESHEETS': {
         'blog': {
             'source_filenames': (
+                'frontend/css/main.scss',
+                'frontend/css/blog.scss',
+            ),
+            'output_filename': 'css/app.css',
+        }
+    },
+    'JAVASCRIPT': {
+        'blog_index': {
+            'source_filenames': (
                 'frontend/js/header.jsx',
-                'frontend/js/blog.jsx',
+                'frontend/js/blog_index.jsx',
+            ),
+            'output_filename': 'blog/js/blog.js',
+        },
+        'blog_entry': {
+            'source_filenames': (
+                'frontend/js/header.jsx',
+                'frontend/js/blog_entry.jsx',
             ),
             'output_filename': 'blog/js/blog.js',
         }
@@ -153,5 +169,6 @@ PIPELINE = {
     'COMPILERS': (
         # 'react.utils.pipeline.JSXCompiler',
         'lib.pipeline.browserify_pipeline.BrowserifyCompiler',
+        'pipeline.compilers.sass.SASSCompiler'
     )
 }

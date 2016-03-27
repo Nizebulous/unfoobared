@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load pipeline %}
+{% block title_prefix %}About Me{% endblock %}
+{% block header_scripts %}{% stylesheet 'blog' %}{% endblock %}
+{% block body %}
+<div class="blog-entry">
+    <p>My name is Damian Hites. And this is my little corner of the internet.</p>
+    <p>Here you will find some personal projects that I have worked on and some
+    musings on my personal experience.</p>
+    <p>For more information about my experience and core competency, see my <a
+    href="https://www.linkedin.com/in/damianhites">LinkedIn</a>. Feel free to
+    reach out to me if you have any interest in any of the work I have done or
+    if you need any software consulting / contracting services.</p>
+</div>
+{% endblock %}
+{% block body_scripts %}{% javascript 'blog_index' %}{% endblock %}

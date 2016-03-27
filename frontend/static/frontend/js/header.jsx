@@ -35,11 +35,16 @@ var headerStyle = {
     marginTop: 10,
     padding: 20,
     width: 800,
+    backgroundColor: Colors.darkGrey,
+    fontFamily: 'monospace',
+    borderRadius: '.25em',
+    boxShadow: '.1em .1em .5em rgba(0,0,0,.45)',
+    color: Colors.white,
 };
 
 class MenuItem extends React.Component {
     render() {
-        var link = this.props.label;
+        var link = this.props.link;
         var label = this.props.label;
         return <a style={menuItemStyle} href={link}><span>{label}</span></a>;
     }
@@ -48,9 +53,10 @@ class MenuItem extends React.Component {
 class MenuBar extends React.Component {
     render() {
         var components = ['blog', 'projects', 'about me'];
+        var links = ['/blog', '/projects', '/about'];
         var menuItems = [<span key='choice'>choice = </span>];
         for (var index = 0; index < components.length; index++) {
-            menuItems.push(<MenuItem key={components[index]} label={components[index]}/>);
+            menuItems.push(<MenuItem key={components[index]} label={components[index]} link={links[index]}/>);
             menuItems.push(<span key={components[index] + 'or'} style={menuItemJoinerStyle}> or </span>);
         }
         menuItems.pop();
@@ -77,6 +83,19 @@ class Header extends React.Component {
     }
 }
 
+class Footer extends React.Component {
+    render() {
+        return (
+            <div style={headerStyle}>
+            <span style={brandTextStyle}># ©2016 Damian Hites.</span>
+            </div>
+       );
+    }
+}
+
 ReactDOM.render(
     <Header/>, document.getElementById('header-mount')
+);
+ReactDOM.render(
+    <Footer/>, document.getElementById('footer-mount')
 );

@@ -1,0 +1,69 @@
+pre {
+    font-family: monospace;
+    background-color: #293134;
+    color: #e0e2e4;
+    width: em(440);
+    margin: 4em auto;
+    padding: 0.5em;
+    border-radius: .25em;
+    box-shadow: .1em .1em .5em rgba(0,0,0,.45);
+    counter-reset: line;
+    .hljs-string {
+        color: #ec7600;
+    }
+    .hljs-keyword {
+        color: #678cb1;
+    }
+    .hljs-number {
+        color: #ffcd22;
+    }
+    .hljs-class {
+        color: #93c763;
+    }
+}
+
+.blog-list {
+    text-align: left;
+    margin: 0 auto;
+    padding: 20 10;
+
+    .bl-element {
+        max-width: 700;
+        margin: 40 auto;
+        padding: 50;
+        width: 80%;
+        border-bottom: solid;
+        border-bottom-width: .1em;
+        border-top: solid;
+        border-top-width: .1em;
+
+        .ble-title-bar {
+            height: 20;
+            margin-bottom: 40;
+            color: #678cb1;
+
+            .bletb-title {
+                float: left;
+                max-width: 500;
+            }
+
+            .bletb-date {
+                float: right;
+                max-width: 200;
+            };
+        }
+
+
+    }
+}
+
+.blog-entry {
+    max-width: 700;
+    margin: 0 auto;
+    padding: 50;
+    width: 80%;
+    border-radius-bottom: solid;
+    border-bottom-width: .1em;
+    border-radius-top: solid;
+    border-top-width: .1em;
+}

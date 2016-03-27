@@ -14,7 +14,9 @@ class BlogEntry(models.Model):
     """
 
     title = models.CharField(max_length=256, unique=True)
+    slug = models.CharField(max_length=256, unique=True)
     post = models.TextField()
+    short = models.TextField()
     is_published = models.BooleanField(default=False)
     first_published_on = models.DateTimeField(null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)

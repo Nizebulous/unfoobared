@@ -3,57 +3,39 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Markdown = require('react-remarkable');
+var hljs = require('highlight.js');
 var BlogStore = require('./stores');
 var Actions = require('./actions');
 var Colors = require('./colors');
 
-var listElementStyle = {
-    color: Colors.white,
-    maxWidth: 700,
-    margin: '0 auto',
-    marginBottom: 100,
-    borderTop: 10,
-    borderStyle: 'dotted',
-    borderColor: Colors.grey,
-    padding: 50,
-    width: '80%',
-};
-
-var listStyle = {
-    textAlign: 'left',
-    margin: '0 auto',
-    padding: '20 10',
-};
-
-var blogEntryTitleBarStyle = {
-    height: 20,
-    marginBottom: 40,
-};
-
-var blogEntryTitleStyle = {
-    float: 'left',
-    color: Colors.blue,
-    maxWidth: 500,
-};
-
-var blogEntryDateStyle = {
-    float: 'right',
-    color: Colors.purple,
-    maxWidth: 200,
+var options = {
+    highlight: function(str, lang) {
+	if (lang && hljs.getLanguage(lang)) {
+            return hljs.highlight(lang, str).value;
+	} else {
+	    return hljs.highlightAuto(str).value;
+	}
+    }
 };
 
 class BlogEntryShort extends React.Component{
     render() {
         var blog = this.props.blog;
+        var date = new Date(blog.first_published_on);
+        var url = date.getFullYear() + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/' + blog.slug;
         return (
-            <div style={listElementStyle}>
-                <div style={blogEntryTitleBarStyle}>
-                    <span style={blogEntryTitleStyle}>{blog.title}</span>
-                    <span style={blogEntryDateStyle}>{new Date(blog.first_published_on).toDateString()}</span>
+            <div className="bl-element">
+                <div className="ble-title-bar">
+                    <span className="bletb-title">{blog.title}</span>
+                    <span className="bletb-date">{date.toDateString()}</span>
                 </div>
                 <div>
-                    <p>{blog.post}</p>
+		    <Markdown options={options} source={blog.short}/>
                 </div>
+		<div>
+		    <a href={url}>Full Post &gt; </a>
+		</div>
             </div>
         );
     }
@@ -92,18 +74,18 @@ class BlogEntryList extends React.Component {
         var blogs = this.state.blogEntries;
         if (blogs !== null) {
             return (
-                <div style={listStyle}>
+                <div className="blog-list">
                 {blogs.map(function(blog) {
                     return <BlogEntryShort key={blog.title} blog={blog}/>;
                 })}
                 </div>
             );
         } else {
-            return (<div style={listStyle}>Loading...</div>);
+            return (<div className="blog-list">Loading...</div>);
         }
     }
 }
 
 ReactDOM.render(
-    <BlogEntryList/>, document.getElementById('blog-mount')
+    <BlogEntryList/>, document.getElementById('main-mount')
 );

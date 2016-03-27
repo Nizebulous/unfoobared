@@ -1,18 +1,18 @@
+{% load pipeline %}
 <html>
     <head>
-        <title>Unfoobared</title>
-        <style>
-body {
-    background-color: #293236;
-    color: #e0e2e4;
-    font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace, serif;
-}
-        </style>
+        <title>{% block title %}{% block title_prefix %} | Unfoobared{% endblock %}{% endblock %}</title>
+        {% block header_scripts %}{% endblock %}
     </head>
     <body>
         <div id="header-mount">
         </div>
-        <div id="blog-mount">
+        {% block body %}
+            <div id="main-mount">
+            </div>
+        {% endblock %}
+        <div id="footer-mount">
         </div>
+        {% block body_scripts %}{% endblock %}
     </body>
 </html>
