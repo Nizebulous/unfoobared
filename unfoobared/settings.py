@@ -20,7 +20,7 @@ def env_var(var, default=None):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env_var('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env_var('HOST_NAME')]
 
 
 # Application definition
@@ -129,7 +129,10 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles/'
+STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'media'))
+STATICFILES_DIRS = []
 
 
 # django-pipeline configuration
@@ -140,14 +143,13 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 PIPELINE = {
-    # 'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
         'blog': {
             'source_filenames': (
                 'frontend/css/main.scss',
                 'frontend/css/blog.scss',
             ),
-            'output_filename': 'css/app.css',
+            'output_filename': 'css/blog.css',
         }
     },
     'JAVASCRIPT': {
@@ -156,19 +158,40 @@ PIPELINE = {
                 'frontend/js/header.jsx',
                 'frontend/js/blog_index.jsx',
             ),
-            'output_filename': 'blog/js/blog.js',
+            'output_filename': 'js/blog_index.js',
         },
         'blog_entry': {
             'source_filenames': (
                 'frontend/js/header.jsx',
                 'frontend/js/blog_entry.jsx',
             ),
-            'output_filename': 'blog/js/blog.js',
+            'output_filename': 'js/blog_entry.js',
         }
     },
     'COMPILERS': (
-        # 'react.utils.pipeline.JSXCompiler',
         'lib.pipeline.browserify_pipeline.BrowserifyCompiler',
         'pipeline.compilers.sass.SASSCompiler'
-    )
+    ),
+    'JS_COMPRESSOR': 'pipeline.compressors.uglifyjs.UglifyJSCompressor',
+}
+
+
+# Logging config
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'app': {
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'class': 'logging.FileHandler',
+            'filename': '/app.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['app'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+    },
 }

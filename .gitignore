@@ -58,7 +58,7 @@ target/
 
 # django-setup
 .env
-staticfiles/
+assets/
 
 # npm
 node_modules/

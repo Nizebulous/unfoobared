@@ -1,4 +1,9 @@
+import logging
+
 from django.shortcuts import render
+
+
+log = logging.getLogger(__name__)
 
 
 def blog_index(request):
