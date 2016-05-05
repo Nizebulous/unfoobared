@@ -15,10 +15,11 @@ def set_env(var, val):
 
 
 set_env('SECRET_KEY', 'uk5732@@z(y!1m=2unlovvmg@3%8-(+kuvt@=zx1)%sp5o3uqh')
-set_env('DB_NAME', 'unfoobared')
+set_env('DB_NAME', 'postgres')
 set_env('DB_USER', 'postgres')
 set_env('DB_PASSWORD', 'ooglyboogly')
 set_env('DB_HOST', '192.168.99.100')
+set_env('HOST_NAME', '127.0.0.1')
 
 DEBUG = True
 
@@ -27,4 +28,21 @@ DEBUG = True
 from unfoobared.settings import *
 
 
-ALLOWED_HOSTS = ['127.0.0.1']
+# Dev logging config
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'app': {
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['app'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        },
+    },
+}
