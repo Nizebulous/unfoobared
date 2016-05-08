@@ -9,8 +9,8 @@ ENV NODE_ENV production
 RUN apt-get update && \
     apt-get install -y ruby-full rubygems-integration nodejs npm && \
     ln -s /usr/bin/nodejs /usr/bin/node && \
-    npm -g install browserify reactify babelify highlight.js react-markdown react-remarkable shortid flux jquery-browserify jshint radium react react-dom sass yuglify uglify-js && \
-    npm install babel-preset-es2015 babel-preset-react && \
+    npm -g install browserify && \
+    npm install && \
     gem install sass
 
 # Copy and install requirements file

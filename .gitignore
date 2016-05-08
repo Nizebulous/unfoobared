@@ -60,6 +60,7 @@ target/
 # django-setup
 .env
 assets/
+static/
 
 # npm
 node_modules/
