@@ -9,7 +9,7 @@ ENV NODE_ENV production
 RUN apt-get update && \
     apt-get install -y ruby-full rubygems-integration nodejs npm && \
     ln -s /usr/bin/nodejs /usr/bin/node && \
-    npm -g install browserify uglify-js && \
+    npm -g install browserify uglify-js yuglify && \
     gem install sass
 
 # Copy and install node dependencies
