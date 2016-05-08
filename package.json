@@ -10,6 +10,7 @@
     "flux": "^2.1.1",
     "highlight.js": "^9.3.0",
     "jquery-browserify": "^1.8.1",
+    "object-assign": "^4.1.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-remarkable": "^1.1.1"
