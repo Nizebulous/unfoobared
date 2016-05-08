@@ -1,2 +1,4 @@
 Dockerfile
 assets/
+static/
+node_modules/

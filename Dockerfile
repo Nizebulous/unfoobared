@@ -9,9 +9,11 @@ ENV NODE_ENV production
 RUN apt-get update && \
     apt-get install -y ruby-full rubygems-integration nodejs npm && \
     ln -s /usr/bin/nodejs /usr/bin/node && \
-    npm -g install browserify && \
-    npm install && \
     gem install sass
+
+# Copy and install node dependencies
+COPY package.json /site/
+RUN npm install
 
 # Copy and install requirements file
 COPY requirements.txt /site/
